@@ -1,65 +1,106 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Button from "./ui/Button";
+import { AudioWave } from "./ui/AudioWave";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
+
+
+// Helper component for header links
+const HeaderLink = ({ children, href = "#" }: { children: React.ReactNode; href?: string }) => (
+  <a
+    href={href}
+    className="text-white/80 hover:text-white transition-colors text-sm font-medium"
+  >
+    {children}
+  </a>
+);
+
+export default function Page() {
+  const router = useRouter();
+
+  const primaryBg = "bg-[#5D4A3C]";
+  const accentColor = "bg-[#D89F5C]";
+  const secondaryColor = "#A7612B";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex flex-col min-h-screen bg-gradient-to-b from-[#5D4A3C] to-[#3E2F25] relative px-4">
+      {/* Decorative floating shapes */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-[#D89F5C]/20 rounded-full filter blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#A7612B]/20 rounded-full filter blur-3xl animate-pulse" />
+
+      {/* --- Header/Navbar --- */}
+      <header className="flex justify-between items-center w-full py-4 px-4 md:px-12 relative z-10">
+        {/* Logo / Left Links */}
+        <div className="flex items-center space-x-6">
+
+            {/* Left links: hidden on mobile */}
+            <div className="hidden md:flex space-x-6">
+            <HeaderLink>Use cases</HeaderLink>
+            <HeaderLink>Pricing</HeaderLink>
+            <HeaderLink>Enterprise</HeaderLink>
+            <HeaderLink>Resources</HeaderLink>
+            <HeaderLink>Affiliates</HeaderLink>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Right Buttons */}
+        <div className="flex space-x-3">
+            <Button
+                className="bg-[#2D2D2D] text-white font-medium rounded-md py-2 px-4 hover:bg-[#3F3F3F] transition-transform hover:translate-x-1"
+                onClick={() => router.push("/login")}
+            >
+            Login
+            </Button>
+
+            <Button variant="secondary"
+                className="flex items-center gap-2 text-sm font-medium hover:text-[black] transition-transform hover:translate-x-1"
+                onClick={() => router.push("/signup")}
+            >
+            Sign Up
+            </Button>
+
+            <Button
+                className="bg-[#F59E0B] text-[#1A1A1A] font-semibold rounded-md py-2 px-4 hover:bg-[#D97706]  transition-transform hover:translate-x-1"
+                onClick={() => router.push("/studio")}
+            >
+            Start Creating
+            </Button>
         </div>
-      </main>
-    </div>
+    </header>
+
+
+      {/* --- Main Content --- */}
+      <section className="flex flex-col items-center justify-center flex-grow text-center relative z-10 pt-10 pb-20">
+        <div className="bg-white/10 text-white text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide">
+          Used by over 250,000 creatives & teams
+        </div>
+
+        <h1 className="text-5xl md:text-6xl font-normal max-w-5xl leading-tight mb-6">
+          <span className="text-[#EFDECD]">
+            Generate videos with camera control, style, and story -
+          </span>{" "}
+          <span className="text-[#CD853F] font-semibold">All in one click</span>
+        </h1>
+
+        <p className="text-white/80 text-lg md:text-xl mb-10">
+          From stills to stories — bring every frame to life.
+        </p>
+        <Button
+            variant="ghost"
+            className="flex items-center gap-2 text-sm font-medium hover:text-[#F59E0B] transition-transform hover:translate-x-1"
+            onClick={() => router.push("/studio")}
+        >
+        Start Creating
+        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </Button><br />
+        <p className="text-white/70 text-sm mb-16">Sign up for free</p>
+
+        {/* Audio Wave */}
+        <div className="w-full max-w-xl">
+          <AudioWave />
+        </div>
+      </section>
+    </main>
   );
 }
